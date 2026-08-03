@@ -3,7 +3,11 @@ import { defineConfig } from 'electron-vite';
 import react from '@vitejs/plugin-react';
 
 export default defineConfig({
-      main: {},
+      main: {
+            build: {
+                  sourcemap: false
+            }
+      },
       preload: {},
       renderer: {
             resolve: {
@@ -12,5 +16,8 @@ export default defineConfig({
                   },
             },
             plugins: [react()],
+            build: {
+                  sourcemap: false,
+            }
       },
 });
