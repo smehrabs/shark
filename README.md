@@ -1,4 +1,4 @@
-# music-app
+# SHARK
 
 music player with React and TypeScript
 
