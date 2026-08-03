@@ -40,6 +40,11 @@ linux:
   maintainer: electronjs.org
   category: Utility
 compression: maximum
+extraResources:
+  - from: native/build/Release
+    to: native
+    filter:
+      - "*.node"
 appImage:
   artifactName: ${name}-${version}.${ext}
 npmRebuild: false

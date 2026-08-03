@@ -2,6 +2,11 @@ import { app, shell, BrowserWindow, ipcMain } from 'electron';
 import { join } from 'path';
 import { electronApp, optimizer, is } from '@electron-toolkit/utils';
 import icon from '../../resources/icon.png?asset';
+import native from './native.js'
+
+const files = native.listDirectory('/home')
+
+console.log('files:', files);
 
 function createWindow(): void {
       // Create the browser window.

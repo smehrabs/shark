@@ -1,0 +1,1 @@
+cmd_Release/obj.target/shark_native.node := g++ -o Release/obj.target/shark_native.node -shared -pthread -rdynamic -m64  -Wl,-soname=shark_native.node -Wl,--start-group Release/obj.target/shark_native/src/addon.o Release/obj.target/node_modules/node-addon-api/nothing.a -Wl,--end-group 
