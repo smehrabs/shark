@@ -1,11 +1,46 @@
 {
-  "[typescript]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "[javascript]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "[json]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  }
+      "editor.scrollbar.vertical": "hidden",
+      "editor.scrollbar.verticalScrollbarSize": 0,
+      "editor.minimap.side": "right",
+      "editor.minimap.size": "proportional",
+      "editor.minimap.renderCharacters": true,
+      "editor.fontFamily": "'Ubuntu Mono'",
+      "editor.fontLigatures": true,
+      "editor.letterSpacing": -0.2,
+      "editor.lineHeight": 16,
+      "workbench.statusBar.visible": false,
+      "terminal.explorerKind": "both",
+      "terminal.sourceControlRepositoriesKind": "both",
+      "files.autoSave": "afterDelay",
+      "git.enableSmartCommit": true,
+      "git.confirmSync": false,
+      "git.autofetch": "all",
+      "extensions.ignoreRecommendations": true,
+      "editor.overtypeCursorStyle": "underline",
+      "editor.cursorStyle": "line",
+      "editor.multiCursorLimit": 100000,
+      "editor.cursorBlinking": "solid",
+      "editor.cursorSmoothCaretAnimation": "on",
+      "editor.smoothScrolling": true,
+      "editor.renderLineHighlight": "all",
+      "window.commandCenter": false,
+      "workbench.layoutControl.enabled": false,
+      "workbench.editor.tabSizing": "shrink",
+      "workbench.activityBar.location": "top",
+      "explorer.compactFolders": false,
+      "editor.multiCursorModifier": "alt",
+      "workbench.colorTheme": "Sublime Material Theme - Dark",
+      "editor.fontSize": 16,
+      "js/ts.updateImportsOnFileMove.enabled": "always",
+      "git.openRepositoryInParentFolders": "always",
+      "workbench.iconTheme": "vscode-icons",
+      "[typescript]": {
+            "editor.defaultFormatter": "esbenp.prettier-vscode"
+      },
+      "[javascript]": {
+            "editor.defaultFormatter": "esbenp.prettier-vscode"
+      },
+      "[json]": {
+            "editor.defaultFormatter": "esbenp.prettier-vscode"
+      }
 }
