@@ -38,7 +38,7 @@ function createWindow(): BrowserWindow {
     minHeight: 500,
     show: false,
     autoHideMenuBar: true,
-    backgroundColor: nativeTheme.shouldUseDarkColors ? '#1a1a1a' : '#f5f5f5',
+    backgroundColor: '#1a1a1a',
     ...(process.platform === 'linux' ? { icon } : {}),
     webPreferences: {
       preload: join(__dirname, '../preload/index.js'),
@@ -52,9 +52,8 @@ function createWindow(): BrowserWindow {
   })
 
   nativeTheme.on('updated', () => {
-    mainWindow.setBackgroundColor(
-      nativeTheme.shouldUseDarkColors ? '#1a1a1a' : '#f5f5f5'
-    )
+    // Keep the window background fixed to #1a1a1a regardless of theme
+    mainWindow.setBackgroundColor('#1a1a1a')
     broadcastTheme(mainWindow)
   })
 
