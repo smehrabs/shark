@@ -1,10 +1,8 @@
-import { app, shell, BrowserWindow, ipcMain, dialog, nativeTheme, protocol, net } from 'electron'
+import { app, shell, BrowserWindow, ipcMain, nativeTheme, protocol, net } from 'electron'
 import { join } from 'path'
 import { pathToFileURL } from 'node:url'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import icon from '../../resources/icon.png?asset'
-import { getLibraryState, rescanLibrary, setMusicFolderAndScan } from './db.js'
-import { getDefaultMusicFolder } from './paths.js'
 
 protocol.registerSchemesAsPrivileged([
   {
@@ -19,7 +17,6 @@ protocol.registerSchemesAsPrivileged([
   }
 ])
 
-const DEFAULT_MUSIC_FOLDER = getDefaultMusicFolder()
 
 function broadcastTheme(window: BrowserWindow): void {
   window.webContents.send('theme:changed', {
@@ -30,21 +27,6 @@ function broadcastTheme(window: BrowserWindow): void {
   })
 }
 
-async function ensureStartupLibrary(): Promise<void> {
-  const state = await getLibraryState()
-  if (state.tracks.length === 0 && !state.musicFolder) {
-    const result = await dialog.showOpenDialog({
-      title: 'Select your music folder',
-      buttonLabel: 'Select folder',
-      defaultPath: DEFAULT_MUSIC_FOLDER,
-      properties: ['openDirectory']
-    })
-
-    if (!result.canceled && result.filePaths.length > 0) {
-      await setMusicFolderAndScan(result.filePaths[0])
-    }
-  }
-}
 
 function createWindow(): BrowserWindow {
   nativeTheme.themeSource = 'system'
@@ -90,46 +72,6 @@ function createWindow(): BrowserWindow {
   return mainWindow
 }
 
-ipcMain.handle('library:getState', async () => {
-  return await getLibraryState()
-})
-
-ipcMain.handle('library:selectFolder', async () => {
-  const result = await dialog.showOpenDialog({
-    title: 'Select music folder',
-    buttonLabel: 'Select folder',
-    defaultPath: DEFAULT_MUSIC_FOLDER,
-    properties: ['openDirectory']
-  })
-
-  if (result.canceled || result.filePaths.length === 0) {
-    return await getLibraryState()
-  }
-
-  return await setMusicFolderAndScan(result.filePaths[0])
-})
-
-ipcMain.handle('library:rescan', async () => {
-  const state = await getLibraryState()
-  if (!state.musicFolder) {
-    return state
-  }
-  return await rescanLibrary(state.musicFolder)
-})
-
-ipcMain.handle('theme:get', () => {
-  return {
-    shouldUseDarkColors: nativeTheme.shouldUseDarkColors,
-    shouldUseHighContrastColors: nativeTheme.shouldUseHighContrastColors,
-    shouldUseInvertedColorScheme: nativeTheme.shouldUseInvertedColorScheme,
-    themeSource: nativeTheme.themeSource
-  }
-})
-
-ipcMain.handle('paths:defaultMusicFolder', () => {
-  return DEFAULT_MUSIC_FOLDER
-})
-
 app.whenReady().then(async () => {
   electronApp.setAppUserModelId('com.electron')
 
@@ -145,7 +87,6 @@ app.whenReady().then(async () => {
 
   ipcMain.on('ping', () => console.log('pong'))
 
-  await ensureStartupLibrary()
   createWindow()
 
   app.on('activate', () => {
