@@ -8,7 +8,7 @@
       "editor.fontLigatures": true,
       "editor.letterSpacing": -0.2,
       "editor.lineHeight": 16,
-      "workbench.statusBar.visible": false,
+      "workbench.statusBar.visible": true,
       "terminal.explorerKind": "both",
       "terminal.sourceControlRepositoriesKind": "both",
       "files.autoSave": "afterDelay",
