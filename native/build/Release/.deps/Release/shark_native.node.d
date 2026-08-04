@@ -1,1 +1,0 @@
-cmd_Release/shark_native.node := ln -f "Release/obj.target/shark_native.node" "Release/shark_native.node" 2>/dev/null || (rm -rf "Release/shark_native.node" && cp -af "Release/obj.target/shark_native.node" "Release/shark_native.node")

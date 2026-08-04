@@ -1,5 +1,5 @@
 {
-  "name": "shark-app",
+  "name": "shark",
   "version": "1.0.0",
   "description": "A music player with React and TypeScript",
   "main": "./out/main/index.js",
@@ -25,7 +25,6 @@
   "dependencies": {
     "@electron-toolkit/preload": "^3.0.2",
     "@electron-toolkit/utils": "^4.0.0",
-    "music-metadata": "^11.14.0",
     "node-addon-api": "^8.9.1"
   },
   "devDependencies": {

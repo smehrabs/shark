@@ -1,5 +1,5 @@
-appId: com.electron.app
-productName: electron-app
+appId: com.shark
+productName: shark
 directories:
   buildResources: build
 files:
@@ -18,7 +18,7 @@ asarUnpack:
 electronLanguages:
   - en
 win:
-  executableName: electron-app
+  executableName: shark
 nsis:
   artifactName: ${name}-${version}-setup.${ext}
   shortcutName: ${productName}
@@ -37,7 +37,7 @@ dmg:
 linux:
   target:
     - AppImage
-  maintainer: electronjs.org
+  maintainer: mehrabsp.org
   category: Utility
 compression: maximum
 extraResources:
