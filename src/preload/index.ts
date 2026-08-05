@@ -1,7 +1,14 @@
-import { contextBridge } from 'electron'
+import { contextBridge, ipcRenderer } from 'electron'
 import { electronAPI } from '@electron-toolkit/preload'
 
 const api = {
+  getTheme: async () => ipcRenderer.invoke('theme:get'),
+  onThemeChanged: (callback: (payload: { shouldUseDarkColors: boolean }) => void) => {
+    const listener = (_: unknown, payload: { shouldUseDarkColors: boolean }) => callback(payload)
+    ipcRenderer.on('theme:changed', listener)
+    return () => ipcRenderer.removeListener('theme:changed', listener)
+  },
+  setThemeSource: async (source: 'system' | 'dark' | 'light') => ipcRenderer.invoke('theme:set', source)
 }
 
 if (process.contextIsolated) {

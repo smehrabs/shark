@@ -57,6 +57,18 @@ function createWindow(): BrowserWindow {
     broadcastTheme(mainWindow)
   })
 
+  ipcMain.handle('theme:get', () => ({
+    shouldUseDarkColors: nativeTheme.shouldUseDarkColors
+  }))
+
+  ipcMain.handle('theme:set', (_event, source: 'system' | 'dark' | 'light') => {
+    nativeTheme.themeSource = source
+    broadcastTheme(mainWindow)
+    return {
+      shouldUseDarkColors: nativeTheme.shouldUseDarkColors
+    }
+  })
+
   mainWindow.webContents.setWindowOpenHandler((details) => {
     shell.openExternal(details.url)
     return { action: 'deny' }
