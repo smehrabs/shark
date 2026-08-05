@@ -1,22 +1,14 @@
 import { useEffect, useState } from 'react'
 import './App.css'
 
-const rewindIcon = new URL('../../../resources/icons8-rewind-button-round-50.png', import.meta.url).href
-const playIcon = new URL('../../../resources/icons8-play-50.png', import.meta.url).href
-const forwardIcon = new URL('../../../resources/icons8-fast-forward-round-50.png', import.meta.url).href
-const brandIcon = new URL('../../../resources/icons8-classic-music-48.png', import.meta.url).href
-const filesIcon = new URL('../../../resources/icons8-classic-music-doodle-32.png', import.meta.url).href
-const libraryIcon = new URL('../../../resources/icons8-classic-music-48.png', import.meta.url).href
-const playlistsIcon = new URL('../../../resources/icons8-circled-play-button-50.png', import.meta.url).href
-const favoritesIcon = new URL('../../../resources/icons8-classic-music-doodle-16.png', import.meta.url).href
-const albumArt = new URL('../../../resources/icons8-classic-music-70.png', import.meta.url).href
+type IconName = 'rewind' | 'play' | 'forward' | 'explore' | 'folder' | 'library' | 'playlist' | 'heart'
 
-const navItems = [
-  { label: 'Explore', icon: null, active: true },
-  { label: 'Files', icon: filesIcon },
-  { label: 'Library', icon: libraryIcon },
-  { label: 'Playlists', icon: playlistsIcon },
-  { label: 'Favorites', icon: favoritesIcon },
+const navItems: { label: string; icon: IconName; active?: boolean }[] = [
+  { label: 'Explore', icon: 'explore', active: true },
+  { label: 'Files', icon: 'folder' },
+  { label: 'Library', icon: 'library' },
+  { label: 'Playlists', icon: 'playlist' },
+  { label: 'Favorites', icon: 'heart' },
 ]
 
 const recentlyPlayed = [
@@ -35,6 +27,57 @@ const songs = [
   { title: 'Parallel Dreams', artist: 'Nova Pulse', duration: '4:11' },
   { title: 'Glasslight', artist: 'Astral Phase', duration: '3:52' },
 ]
+
+function AppIcon({ name, className }: { name: IconName; className?: string }) {
+  return (
+    <svg
+      className={className}
+      width="18"
+      height="18"
+      viewBox="0 0 20 20"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      aria-hidden="true"
+    >
+      {name === 'rewind' && <path d="M14 4.5 8.5 10 14 15.5V4.5Z M7 4.5 1.5 10 7 15.5V4.5Z" fill="currentColor" />}
+      {name === 'play' && <path d="M7 4.5 15.5 10 7 15.5V4.5Z" fill="currentColor" />}
+      {name === 'forward' && <path d="M6 4.5 11.5 10 6 15.5V4.5Z M12.5 4.5 18 10 12.5 15.5V4.5Z" fill="currentColor" />}
+      {name === 'explore' && (
+        <>
+          <circle cx="10" cy="10" r="6.5" stroke="currentColor" strokeWidth="1.8" />
+          <path d="M10.5 5.5 13.5 10.5 9.5 12.5 6.5 9.5 10.5 5.5Z" fill="currentColor" />
+        </>
+      )}
+      {name === 'folder' && <path d="M3.5 6.5C3.5 5.67 4.17 5 5 5H8.5L10 7H15C15.83 7 16.5 7.67 16.5 8.5V15.5C16.5 16.33 15.83 17 15 17H5C4.17 17 3.5 16.33 3.5 15.5V6.5Z" stroke="currentColor" strokeWidth="1.5" fill="none" />}
+      {name === 'library' && (
+        <>
+          <rect x="4" y="5" width="12" height="12" rx="2" stroke="currentColor" strokeWidth="1.5" />
+          <path d="M7 8H13" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+          <path d="M7 11H13" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+          <path d="M7 14H11" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+        </>
+      )}
+      {name === 'playlist' && (
+        <>
+          <circle cx="6" cy="6" r="1.5" fill="currentColor" />
+          <path d="M8.5 6H15" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+          <circle cx="6" cy="10" r="1.5" fill="currentColor" />
+          <path d="M8.5 10H15" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+          <circle cx="6" cy="14" r="1.5" fill="currentColor" />
+          <path d="M8.5 14H15" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+        </>
+      )}
+      {name === 'heart' && (
+        <path
+          d="M10 16s-5.5-3.1-7-5.9C1.5 7.9 3.7 5 6.5 5 8 5 10 6.3 10 6.3S12 5 13.5 5C16.3 5 18.5 7.9 17 10.1 15.5 12.9 10 16 10 16Z"
+          stroke="currentColor"
+          strokeWidth="1.5"
+          fill="none"
+        />
+      )}
+    </svg>
+  )
+}
 
 function Home(): React.JSX.Element {
   const [isDark, setIsDark] = useState(() => {
@@ -89,14 +132,14 @@ function Home(): React.JSX.Element {
     <div className="app-shell">
       <header className="top-bar">
         <div className="top-bar-left">
-          <button className="control-button" aria-label="Previous">
-            <img src={rewindIcon} alt="Previous" />
+          <button type="button" className="control-button" aria-label="Previous">
+            <AppIcon name="rewind" className="control-icon" />
           </button>
-          <button className="control-button" aria-label="Play">
-            <img src={playIcon} alt="Play" />
+          <button type="button" className="control-button" aria-label="Play">
+            <AppIcon name="play" className="control-icon" />
           </button>
-          <button className="control-button" aria-label="Next">
-            <img src={forwardIcon} alt="Next" />
+          <button type="button" className="control-button" aria-label="Next">
+            <AppIcon name="forward" className="control-icon" />
           </button>
         </div>
 
@@ -111,16 +154,18 @@ function Home(): React.JSX.Element {
       </header>
 
       <aside className="sidebar">
-        <div className="brand-panel">
-          <img className="brand-icon" src={brandIcon} alt="Shark logo" />
-          <h2>Shark Player</h2>
-        </div>
+            <div className="brand-panel">
+            <div className="brand-icon brand-icon-placeholder">
+              <AppIcon name="explore" className="brand-placeholder-icon" />
+            </div>
+            <h2>Shark Player</h2>
+          </div>
 
         <div className="nav-group">
           {navItems.map((item) => (
             <div key={item.label} className={`nav-item${item.active ? ' active' : ''}`}>
-              {item.icon && <img className="nav-item-icon" src={item.icon} alt={item.label} />}
-              {item.label}
+              <AppIcon name={item.icon} className="nav-item-icon" />
+              <span className="nav-item-label">{item.label}</span>
             </div>
           ))}
         </div>
@@ -139,13 +184,15 @@ function Home(): React.JSX.Element {
       </aside>
 
       <main className="main-body">
-        <section className="header-panel">
+        {/* <section className="header-panel">
           <div>
             <h1>Music Player</h1>
           </div>
 
           <div className="hero-track-card">
-            <img className="hero-art" src={albumArt} alt="Album art" />
+            <div className="hero-art hero-art-placeholder">
+              <AppIcon name="play" className="hero-art-icon" />
+            </div>
             <div>
               <p className="hero-current-label">Current track</p>
               <p className="hero-current-title">Midnight Drive</p>
@@ -167,19 +214,7 @@ function Home(): React.JSX.Element {
               <p className="stat-value">2h 15m</p>
             </div>
           </div>
-        </section>
-
-        <section className="feature-panel">
-          <div className="feature-card">
-            <p className="feature-title">Queue</p>
-          </div>
-          <div className="feature-card">
-            <p className="feature-title">Files</p>
-          </div>
-          <div className="feature-card">
-            <p className="feature-title">Favorites</p>
-          </div>
-        </section>
+        </section> */}
 
         <section className="list-pane">
           <div className="list-actions">

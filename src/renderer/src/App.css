@@ -1,31 +1,36 @@
 :root {
-  color-scheme: dark;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  --background: #eff0f2;
-  --panel: #ffffff;
-  --surface: #f4f5f7;
-  --text: #21252e;
-  --muted: #6b7280;
-  --border: #d2d6db;
-  --panel-border: #d8dae0;
-  --accent: #3b5cc5;
-  --accent-soft: rgba(59, 92, 197, 0.18);
+  color-scheme: light;
+  font-family: 'Ubuntu', 'Cantarell', 'Segoe UI', sans-serif;
+  --background: #ebeef2;
+  --panel: #f6f7f9;
+  --surface: #ffffff;
+  --text: #2a3039;
+  --text-muted: #6e7688;
+  --border: #c7ccd4;
+  --panel-border: #d3d6dd;
+  --accent: #2f7ad5;
+  --accent-soft: rgba(47, 122, 213, 0.16);
   --shadow: 0 10px 24px rgba(0, 0, 0, 0.08);
-  --control-bg: rgba(16, 20, 32, 0.08);
+  --control-bg: #eef2f7;
+  --control-border: #c7ccd4;
+  --surface-soft: #f1f4f8;
 }
 
 .dark {
-  --background: #10131a;
-  --panel: #171b24;
-  --surface: #1f2430;
-  --text: #e8ecff;
-  --muted: #9ea4c9;
-  --border: rgba(255, 255, 255, 0.14);
+  color-scheme: dark;
+  --background: #151922;
+  --panel: #1f2631;
+  --surface: #252d39;
+  --text: #e6ebff;
+  --text-muted: #a2abc6;
+  --border: rgba(255, 255, 255, 0.12);
   --panel-border: rgba(255, 255, 255, 0.08);
-  --accent: #6b92ff;
-  --accent-soft: rgba(107, 146, 255, 0.16);
+  --accent: #6d8bff;
+  --accent-soft: rgba(110, 139, 255, 0.16);
   --shadow: 0 10px 24px rgba(0, 0, 0, 0.35);
-  --control-bg: rgba(255, 255, 255, 0.04);
+  --control-bg: #1b2231;
+  --control-border: rgba(255, 255, 255, 0.08);
+  --surface-soft: #232b38;
 }
 
 * {
@@ -54,6 +59,15 @@ input,
 textarea,
 select {
   font-family: inherit;
+}
+
+button,
+input,
+textarea,
+select {
+  color: var(--text);
+  background: var(--surface);
+  border-color: var(--control-border);
 }
 
 ::-webkit-scrollbar {
@@ -104,21 +118,64 @@ select {
 }
 
 .control-button {
-  width: 40px;
-  height: 40px;
-  border-radius: 12px;
-  background: var(--surface);
+  width: 42px;
+  height: 42px;
+  border-radius: 11px;
+  background: var(--control-bg);
   color: var(--text);
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid var(--panel-border);
-  transition: background 0.2s ease, border-color 0.2s ease;
+  border: 1px solid var(--control-border);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.24);
+  transition: background 0.15s ease, border-color 0.15s ease, transform 0.15s ease;
 }
 
 .control-button:hover {
-  background: var(--accent-soft);
+  background: var(--surface);
   border-color: var(--accent);
+  transform: translateY(-1px);
+}
+
+.control-icon {
+  width: 18px;
+  height: 18px;
+  display: block;
+}
+
+.nav-item {
+  color: var(--text-muted);
+  font-size: 14px;
+  font-weight: 500;
+  padding: 12px 14px;
+  border-radius: 12px;
+  transition: background 0.18s ease, color 0.18s ease;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.nav-item-icon {
+  width: 18px;
+  height: 18px;
+  min-width: 18px;
+  min-height: 18px;
+  color: var(--text-muted);
+}
+
+.nav-item-label {
+  line-height: 1.15;
+}
+
+.nav-item:hover,
+.nav-item.active {
+  background: var(--accent-soft);
+  color: var(--text);
+}
+
+.nav-item.active .nav-item-icon {
+  color: var(--accent);
 }
 
 .track-info {
@@ -205,9 +262,20 @@ button {
   gap: 14px;
 }
 
-.brand-icon {
+.brand-icon-placeholder {
   width: 42px;
   height: 42px;
+  border-radius: 12px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  display: grid;
+  place-items: center;
+  color: var(--accent);
+}
+
+.brand-placeholder-icon {
+  width: 20px;
+  height: 20px;
 }
 
 .nav-group {
@@ -304,19 +372,28 @@ button {
 .hero-track-card {
   background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: 20px;
-  padding: 20px;
+  border-radius: 16px;
+  padding: 18px;
   display: flex;
   align-items: center;
   gap: 18px;
   min-width: 320px;
 }
 
-.hero-art {
+.hero-art-placeholder {
   width: 82px;
   height: 82px;
-  border-radius: 18px;
-  object-fit: cover;
+  border-radius: 16px;
+  background: var(--control-bg);
+  border: 1px solid var(--border);
+  display: grid;
+  place-items: center;
+}
+
+.hero-art-icon {
+  width: 28px;
+  height: 28px;
+  color: var(--accent);
 }
 
 .hero-current-label {
